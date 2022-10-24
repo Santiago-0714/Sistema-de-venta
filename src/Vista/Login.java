@@ -1,16 +1,38 @@
 
 package Vista;
 
+import Modelo.*;
+import javax.swing.JOptionPane;
+        
 public class Login extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Login
-     */
+    login lg = new login();
+    LoginDAO login = new LoginDAO();
+    
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null); // Al compilar aparece en el centro de la pantalla
     }
-
+    
+    public void Validar(){
+        String correo = txtCorreo.getText();
+        String pass = String.valueOf(txtPass.getPassword());
+        
+        if(!"".equals(correo) || !"".equals(pass)){ //Si algun campo esta vacio
+            
+            lg = login.log(correo, pass);
+            if(lg.getCorreo() != null && lg.getPass() != null){
+                Sistema sis = new Sistema();
+                sis.setVisible(true); //Hace visible la interfaz sistema
+                dispose(); //Enconde el login  
+            }else{
+                JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos");
+            }
+            
+            
+        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -152,11 +174,11 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
@@ -223,7 +245,9 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
+        Validar();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
