@@ -563,12 +563,12 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnGuardarCliente" max="32767" attributes="0"/>
-                                  <Component id="btnEliminarCliente" min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Component id="btnEliminarCliente" max="32767" attributes="0"/>
+                                  <Component id="btnGuardarCliente" pref="45" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="52" pref="52" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnNuevoCliente" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnNuevoCliente" min="-2" pref="45" max="-2" attributes="0"/>
                                   <Component id="btnActualizarCliente" min="-2" pref="45" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -613,13 +613,13 @@
                               </Group>
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnGuardarCliente" max="32767" attributes="0"/>
-                                  <Component id="btnActualizarCliente" min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Component id="btnActualizarCliente" max="32767" attributes="0"/>
+                                  <Component id="btnGuardarCliente" pref="45" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="btnNuevoCliente" pref="45" max="32767" attributes="0"/>
                                   <Component id="btnEliminarCliente" max="32767" attributes="0"/>
-                                  <Component id="btnNuevoCliente" min="-2" pref="45" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
