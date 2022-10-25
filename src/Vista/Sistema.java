@@ -6,7 +6,9 @@ package Vista;
 
 import Modelo.Cliente;
 import Modelo.ClienteDAO;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,14 +17,41 @@ import javax.swing.JOptionPane;
 public class Sistema extends javax.swing.JFrame {
     Cliente c1 = new Cliente();
     ClienteDAO cliente = new ClienteDAO();
-
+    
+    DefaultTableModel modelo = new DefaultTableModel();
     /**
      * Creates new form Sistema
      */
     public Sistema() {
         initComponents();
     }
-
+    
+    public void ListarCliente(){
+        List<Cliente> ListaCl = cliente.ListarClientes();
+        modelo = (DefaultTableModel) TableCliente.getModel();
+        Object[] obj = new Object[6];
+        
+        for(int i=0;i<ListaCl.size();i++){
+            obj[0] = ListaCl.get(i).getId();
+            obj[1] = ListaCl.get(i).getDni();
+            obj[2] = ListaCl.get(i).getNombre();
+            obj[3] = ListaCl.get(i).getTelefono();
+            obj[4] = ListaCl.get(i).getDireccion();
+            obj[5] = ListaCl.get(i).getRazon();
+            modelo.addRow(obj);
+        }
+        
+        TableCliente.setModel(modelo);
+        
+    }
+    
+    public void LimpiarTable(){ //Para que no repita los valores cada que se da click en "Clientes"
+        for(int i=0; i<modelo.getRowCount();i++){
+            modelo.removeRow(i);
+            i--;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -170,6 +199,11 @@ public class Sistema extends javax.swing.JFrame {
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Clientes.png"))); // NOI18N
         jButton5.setText("Cliente");
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Nventa.png"))); // NOI18N
@@ -1028,6 +1062,14 @@ public class Sistema extends javax.swing.JFrame {
     private void txtDniClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDniClienteActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        LimpiarTable();
+        ListarCliente();
+        jTabbedPane1.setSelectedIndex(1); //Al darle en el boton abre la table correspondiente
+        
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
