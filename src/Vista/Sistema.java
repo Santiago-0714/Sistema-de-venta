@@ -24,6 +24,7 @@ public class Sistema extends javax.swing.JFrame {
      */
     public Sistema() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     
     public void ListarCliente(){
@@ -466,17 +467,22 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DNI/RUC", "NOMBRE", "TELEFONO", "DIRECCION", "RAZON SOCIAL"
+                "ID", "DNI/RUC", "NOMBRE", "TELEFONO", "DIRECCION", "RAZON SOCIAL"
             }
         ));
+        TableCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableClienteMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(TableCliente);
         if (TableCliente.getColumnModel().getColumnCount() > 0) {
-            TableCliente.getColumnModel().getColumn(0).setPreferredWidth(50);
-            TableCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
-            TableCliente.getColumnModel().getColumn(2).setPreferredWidth(40);
-            TableCliente.getColumnModel().getColumn(3).setPreferredWidth(50);
-            TableCliente.getColumnModel().getColumn(4).setPreferredWidth(80);
-            TableCliente.getColumnModel().getColumn(4).setHeaderValue("RAZON SOCIAL");
+            TableCliente.getColumnModel().getColumn(0).setPreferredWidth(10);
+            TableCliente.getColumnModel().getColumn(1).setPreferredWidth(50);
+            TableCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
+            TableCliente.getColumnModel().getColumn(3).setPreferredWidth(40);
+            TableCliente.getColumnModel().getColumn(4).setPreferredWidth(50);
+            TableCliente.getColumnModel().getColumn(5).setPreferredWidth(80);
         }
 
         btnGuardarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/GuardarTodo.png"))); // NOI18N
@@ -492,6 +498,11 @@ public class Sistema extends javax.swing.JFrame {
 
         btnEliminarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
         btnEliminarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarClienteActionPerformed(evt);
+            }
+        });
 
         btnNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/nuevo.png"))); // NOI18N
         btnNuevoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1028,7 +1039,9 @@ public class Sistema extends javax.swing.JFrame {
             c1.setRazon(txtRazonCliente.getText());
             
             cliente.RegistrarCliente(c1);
-            
+            LimpiarTable();
+            LimpiarCliente();
+            ListarCliente();
             JOptionPane.showMessageDialog(null,"Cliente registrado");
         }else{
             JOptionPane.showMessageDialog(null,"Los campos estan vacios");
@@ -1070,6 +1083,32 @@ public class Sistema extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void TableClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableClienteMouseClicked
+        int fila = TableCliente.rowAtPoint(evt.getPoint());
+        txtIdCliente.setText(TableCliente.getValueAt(fila,0).toString());
+        txtDniCliente.setText(TableCliente.getValueAt(fila,1).toString());
+        txtNombreCliente.setText(TableCliente.getValueAt(fila,2).toString());
+        txtTelefonoCliente.setText(TableCliente.getValueAt(fila,3).toString());
+        txtDireccionCliente.setText(TableCliente.getValueAt(fila,4).toString());
+        txtRazonCliente.setText(TableCliente.getValueAt(fila,5).toString());
+        
+    }//GEN-LAST:event_TableClienteMouseClicked
+
+    private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
+        
+        if(!"".equals(txtIdCliente.getText())){
+            int pregunta = JOptionPane.showConfirmDialog(null,"Estas seguro de eliminar?");
+            if(pregunta == 0){
+                int id = Integer.parseInt(txtIdCliente.getText());
+                cliente.EliminarCliente(id);
+                LimpiarTable();
+                LimpiarCliente();
+                ListarCliente();
+            }
+        }
+        
+    }//GEN-LAST:event_btnEliminarClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1216,4 +1255,13 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefonoClienteVenta;
     private javax.swing.JTextField txtTelefonoProveedor;
     // End of variables declaration//GEN-END:variables
+    private void LimpiarCliente(){
+        txtIdCliente.setText("");
+        txtDniCliente.setText("");
+        txtNombreCliente.setText("");
+        txtDireccionCliente.setText("");
+        txtTelefonoCliente.setText("");
+        txtRazonCliente.setText("");
+    }
+
 }
